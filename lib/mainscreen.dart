@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:task_manager/size_config.dart';
 
 enum ColorState { active, active2, active3 }
 
@@ -12,6 +13,9 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
+    double defaultSize = SizeConfig.defaultSize;
+    double screenHeight = SizeConfig.screenHeight;
     return Center(
       child: Scaffold(
         body: SafeArea(
@@ -27,7 +31,7 @@ class _MainScreenState extends State<MainScreen> {
                       'Hello,',
                       style: TextStyle(
                         color: Color(0xFFBBBBBB),
-                        fontSize: 30.0,
+                        fontSize: defaultSize * 3,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -38,8 +42,8 @@ class _MainScreenState extends State<MainScreen> {
                       borderRadius: BorderRadius.circular(25),
                       child: Image.asset(
                         'images/profilepic.png',
-                        height: 65,
-                        width: 65,
+                        height: defaultSize * 6.5,
+                        width: defaultSize * 6.5,
                       ),
                     ),
                   ),
@@ -50,7 +54,7 @@ class _MainScreenState extends State<MainScreen> {
                 child: Text(
                   'Rishiraj Sawant',
                   style: TextStyle(
-                    fontSize: 30.0,
+                    fontSize: defaultSize * 3,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -80,7 +84,7 @@ class _MainScreenState extends State<MainScreen> {
                           child: Text(
                             'My Day',
                             style: TextStyle(
-                                fontSize: 18,
+                                fontSize: defaultSize * 1.8,
                                 fontWeight: FontWeight.bold,
                                 color: selectedState == ColorState.active
                                     ? Colors.white
@@ -106,7 +110,7 @@ class _MainScreenState extends State<MainScreen> {
                           child: Text(
                             'Important',
                             style: TextStyle(
-                                fontSize: 18,
+                                fontSize: defaultSize * 1.8,
                                 fontWeight: FontWeight.bold,
                                 color: selectedState == ColorState.active2
                                     ? Colors.white
@@ -131,7 +135,7 @@ class _MainScreenState extends State<MainScreen> {
                           child: Text(
                             'Planned',
                             style: TextStyle(
-                                fontSize: 18,
+                                fontSize: defaultSize * 1.8,
                                 fontWeight: FontWeight.bold,
                                 color: selectedState == ColorState.active3
                                     ? Colors.white
@@ -149,20 +153,38 @@ class _MainScreenState extends State<MainScreen> {
                   'Tasks',
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 18,
+                      fontSize: defaultSize * 1.8,
                       color: Color(0xFFABA2B0)),
                 ),
               ),
-              TaskCard(
-                taskText: 'Meeting with Rishiraj',
-                timeText: '12:30 PM - 1:00 PM',
-                descText: 'To discuss about the next game and the strategy',
-              ),
-              TaskCard(
-                taskText: 'Follow-up with Nutritionist',
-                timeText: '3:00 PM - 4:00 PM',
-                descText:
-                    'Discuss about the diet plan, sleep cycle and workout routine for the upcoming week.',
+              Container(
+                height: screenHeight >= 812.0
+                    ? screenHeight * 0.42
+                    : screenHeight * 0.38,
+                child: ListView(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  children: [
+                    TaskCard(
+                      taskText: 'Meeting with Rishiraj',
+                      timeText: '12:30 PM - 1:00 PM',
+                      descText:
+                          'To discuss about the next game and the strategy',
+                    ),
+                    TaskCard(
+                      taskText: 'Follow-up with Nutritionist',
+                      timeText: '3:00 PM - 4:00 PM',
+                      descText:
+                          'Discuss about the diet plan, sleep cycle and workout routine for the upcoming week.',
+                    ),
+                    TaskCard(
+                      taskText: 'Follow-up with Nutritionist',
+                      timeText: '3:00 PM - 4:00 PM',
+                      descText:
+                          'Discuss about the diet plan, sleep cycle and workout routine for the upcoming week.',
+                    ),
+                  ],
+                ),
               ),
               Expanded(
                 child: Container(),
@@ -174,7 +196,7 @@ class _MainScreenState extends State<MainScreen> {
                   children: [
                     Icon(
                       Icons.home,
-                      size: 27,
+                      size: defaultSize * 2.7,
                       color: Color(0xFF424242),
                     ),
                     ClipRRect(
@@ -188,7 +210,7 @@ class _MainScreenState extends State<MainScreen> {
                           color: Color(0xFFF08182),
                           child: Icon(
                             Icons.add,
-                            size: 27,
+                            size: defaultSize * 2.7,
                             color: Colors.white,
                           ),
                         ),
@@ -196,7 +218,7 @@ class _MainScreenState extends State<MainScreen> {
                     ),
                     Icon(
                       Icons.message,
-                      size: 27,
+                      size: defaultSize * 2.7,
                       color: Color(0xFF424242),
                     ),
                   ],
@@ -210,13 +232,14 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   void createTask() {
+    double defaultSize = SizeConfig.defaultSize;
     showModalBottomSheet(
         context: context,
         builder: (context) {
           return Container(
             color: Color(0xFF737373),
             child: Container(
-              height: 180,
+              height: defaultSize * 18,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(20),
@@ -231,13 +254,13 @@ class _MainScreenState extends State<MainScreen> {
                     child: Text(
                       'Create a task',
                       style: TextStyle(
-                        fontSize: 20,
+                        fontSize: defaultSize * 2,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
                   SizedBox(
-                    height: 40,
+                    height: defaultSize * 4,
                   ),
                   Container(
                     alignment: Alignment.centerLeft,
@@ -245,14 +268,14 @@ class _MainScreenState extends State<MainScreen> {
                     child: Text(
                       'Task Title',
                       style: TextStyle(
-                        fontSize: 15,
+                        fontSize: defaultSize * 1.5,
                         fontWeight: FontWeight.bold,
                         color: Color(0xFFABA2B0),
                       ),
                     ),
                   ),
                   SizedBox(
-                    height: 10,
+                    height: defaultSize * 1,
                   ),
                   Container(
                     margin: EdgeInsets.fromLTRB(30, 0, 30, 0),
@@ -282,7 +305,7 @@ class TaskCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.fromLTRB(20, 25, 20, 0),
+      margin: EdgeInsets.fromLTRB(20, 10, 20, 0),
       decoration: BoxDecoration(
           color: Color(0xFFF5F5F5), borderRadius: BorderRadius.circular(20)),
       child: Column(
