@@ -1,4 +1,7 @@
+//import 'dart:js';
+
 import 'package:flutter/material.dart';
+import 'package:task_manager/create_task.dart';
 import 'package:task_manager/size_config.dart';
 
 enum ColorState { active, active2, active3 }
@@ -203,7 +206,11 @@ class _MainScreenState extends State<MainScreen> {
                       borderRadius: BorderRadius.circular(15),
                       child: GestureDetector(
                         onTap: () {
-                          createTask();
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => CreateTask()),
+                          );
                         },
                         child: Container(
                           padding: EdgeInsets.all(10),
@@ -229,71 +236,6 @@ class _MainScreenState extends State<MainScreen> {
         ),
       ),
     );
-  }
-
-  void createTask() {
-    double defaultSize = SizeConfig.defaultSize;
-    showModalBottomSheet(
-        context: context,
-        builder: (context) {
-          return Container(
-            color: Color(0xFF737373),
-            child: Container(
-              height: defaultSize * 18,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20)),
-                color: Colors.white,
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Container(
-                    child: Text(
-                      'Create a task',
-                      style: TextStyle(
-                        fontSize: defaultSize * 2,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: defaultSize * 4,
-                  ),
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    margin: EdgeInsets.only(left: 30),
-                    child: Text(
-                      'Task Title',
-                      style: TextStyle(
-                        fontSize: defaultSize * 1.5,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFFABA2B0),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: defaultSize * 1,
-                  ),
-                  Container(
-                    margin: EdgeInsets.fromLTRB(30, 0, 30, 0),
-                    child: TextField(
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                        hintText: 'Task Title',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          );
-        });
   }
 }
 
@@ -347,3 +289,78 @@ class TaskCard extends StatelessWidget {
     );
   }
 }
+
+// void createTask() {
+//   double defaultSize = SizeConfig.defaultSize;
+//   DraggableScrollableSheet(builder: (context, scrollController) {
+//     return SingleChildScrollView(
+//       controller: scrollController,
+//       child: Container(
+//         height: defaultSize * 18,
+//         child: Text('Hello World'),
+//       ),
+//     );
+//   });
+// }
+
+// showModalBottomSheet(
+//         context: context,
+//         builder: (context) {
+//           return Container(
+//             color: Color(0xFF737373),
+//             child: Container(
+//               height: defaultSize * 18,
+//               decoration: BoxDecoration(
+//                 borderRadius: BorderRadius.only(
+//                     topLeft: Radius.circular(20),
+//                     topRight: Radius.circular(20)),
+//                 color: Colors.white,
+//               ),
+//               child: Column(
+//                 mainAxisAlignment: MainAxisAlignment.center,
+//                 mainAxisSize: MainAxisSize.min,
+//                 children: <Widget>[
+//                   Container(
+//                     child: Text(
+//                       'Create a task',
+//                       style: TextStyle(
+//                         fontSize: defaultSize * 2,
+//                         fontWeight: FontWeight.bold,
+//                       ),
+//                     ),
+//                   ),
+//                   SizedBox(
+//                     height: defaultSize * 4,
+//                   ),
+//                   Container(
+//                     alignment: Alignment.centerLeft,
+//                     margin: EdgeInsets.only(left: 30),
+//                     child: Text(
+//                       'Task Title',
+//                       style: TextStyle(
+//                         fontSize: defaultSize * 1.5,
+//                         fontWeight: FontWeight.bold,
+//                         color: Color(0xFFABA2B0),
+//                       ),
+//                     ),
+//                   ),
+//                   SizedBox(
+//                     height: defaultSize * 1,
+//                   ),
+//                   Container(
+//                     margin: EdgeInsets.fromLTRB(30, 0, 30, 0),
+//                     child: TextField(
+//                       decoration: InputDecoration(
+//                         contentPadding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+//                         hintText: 'Task Title',
+//                         border: OutlineInputBorder(
+//                           borderRadius: BorderRadius.circular(15),
+//                         ),
+//                       ),
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//             ),
+//           );
+//         });
