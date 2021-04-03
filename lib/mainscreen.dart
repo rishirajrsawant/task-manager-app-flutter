@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:task_manager/create_task.dart';
 import 'package:task_manager/size_config.dart';
+import 'components/toggle_container.dart';
+import 'components/task_card.dart';
 
 enum ColorState { active, active2, active3 }
 
@@ -75,24 +77,13 @@ class _MainScreenState extends State<MainScreen> {
                             selectedState = ColorState.active;
                           });
                         },
-                        child: Container(
-                          margin: EdgeInsets.only(right: 10),
-                          padding: EdgeInsets.all(23),
-                          decoration: BoxDecoration(
-                            color: selectedState == ColorState.active
-                                ? Color(0xFFCAA2EB)
-                                : Color(0xFFF5F5F5),
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: Text(
-                            'My Day',
-                            style: TextStyle(
-                                fontSize: defaultSize * 1.8,
-                                fontWeight: FontWeight.bold,
-                                color: selectedState == ColorState.active
-                                    ? Colors.white
-                                    : Colors.black),
-                          ),
+                        child: ToggleContainer(
+                          selectedState: selectedState,
+                          activeState: ColorState.active,
+                          defaultSize: defaultSize,
+                          containerText: 'My Day',
+                          togglePadding: 23.0,
+                          toggleFont: 1.5,
                         ),
                       ),
                       GestureDetector(
@@ -101,24 +92,13 @@ class _MainScreenState extends State<MainScreen> {
                             selectedState = ColorState.active2;
                           });
                         },
-                        child: Container(
-                          margin: EdgeInsets.only(right: 10),
-                          padding: EdgeInsets.all(23),
-                          decoration: BoxDecoration(
-                            color: selectedState == ColorState.active2
-                                ? Color(0xFFCAA2EB)
-                                : Color(0xFFF5F5F5),
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: Text(
-                            'Important',
-                            style: TextStyle(
-                                fontSize: defaultSize * 1.8,
-                                fontWeight: FontWeight.bold,
-                                color: selectedState == ColorState.active2
-                                    ? Colors.white
-                                    : Colors.black),
-                          ),
+                        child: ToggleContainer(
+                          selectedState: selectedState,
+                          activeState: ColorState.active2,
+                          defaultSize: defaultSize,
+                          containerText: 'Important',
+                          togglePadding: 23.0,
+                          toggleFont: 1.5,
                         ),
                       ),
                       GestureDetector(
@@ -127,23 +107,13 @@ class _MainScreenState extends State<MainScreen> {
                             selectedState = ColorState.active3;
                           });
                         },
-                        child: Container(
-                          padding: EdgeInsets.all(23),
-                          decoration: BoxDecoration(
-                            color: selectedState == ColorState.active3
-                                ? Color(0xFFCAA2EB)
-                                : Color(0xFFF5F5F5),
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: Text(
-                            'Planned',
-                            style: TextStyle(
-                                fontSize: defaultSize * 1.8,
-                                fontWeight: FontWeight.bold,
-                                color: selectedState == ColorState.active3
-                                    ? Colors.white
-                                    : Colors.black),
-                          ),
+                        child: ToggleContainer(
+                          selectedState: selectedState,
+                          activeState: ColorState.active3,
+                          defaultSize: defaultSize,
+                          containerText: 'Planned',
+                          togglePadding: 23.0,
+                          toggleFont: 1.5,
                         ),
                       ),
                     ],
@@ -238,129 +208,3 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 }
-
-class TaskCard extends StatelessWidget {
-  TaskCard({@required this.taskText, @required this.timeText, this.descText});
-
-  final String taskText, timeText, descText;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.fromLTRB(20, 10, 20, 0),
-      decoration: BoxDecoration(
-          color: Color(0xFFF5F5F5), borderRadius: BorderRadius.circular(20)),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            padding: EdgeInsets.fromLTRB(20, 20, 20, 5),
-            child: Text(
-              taskText,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-              ),
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.fromLTRB(20, 0, 0, 5),
-            child: Row(
-              children: [
-                Icon(
-                  Icons.access_alarms,
-                ),
-                Text(
-                  timeText,
-                ),
-              ],
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.fromLTRB(20, 0, 0, 20),
-            child: Text(
-              descText,
-              style: TextStyle(fontSize: 14, fontStyle: FontStyle.italic),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-// void createTask() {
-//   double defaultSize = SizeConfig.defaultSize;
-//   DraggableScrollableSheet(builder: (context, scrollController) {
-//     return SingleChildScrollView(
-//       controller: scrollController,
-//       child: Container(
-//         height: defaultSize * 18,
-//         child: Text('Hello World'),
-//       ),
-//     );
-//   });
-// }
-
-// showModalBottomSheet(
-//         context: context,
-//         builder: (context) {
-//           return Container(
-//             color: Color(0xFF737373),
-//             child: Container(
-//               height: defaultSize * 18,
-//               decoration: BoxDecoration(
-//                 borderRadius: BorderRadius.only(
-//                     topLeft: Radius.circular(20),
-//                     topRight: Radius.circular(20)),
-//                 color: Colors.white,
-//               ),
-//               child: Column(
-//                 mainAxisAlignment: MainAxisAlignment.center,
-//                 mainAxisSize: MainAxisSize.min,
-//                 children: <Widget>[
-//                   Container(
-//                     child: Text(
-//                       'Create a task',
-//                       style: TextStyle(
-//                         fontSize: defaultSize * 2,
-//                         fontWeight: FontWeight.bold,
-//                       ),
-//                     ),
-//                   ),
-//                   SizedBox(
-//                     height: defaultSize * 4,
-//                   ),
-//                   Container(
-//                     alignment: Alignment.centerLeft,
-//                     margin: EdgeInsets.only(left: 30),
-//                     child: Text(
-//                       'Task Title',
-//                       style: TextStyle(
-//                         fontSize: defaultSize * 1.5,
-//                         fontWeight: FontWeight.bold,
-//                         color: Color(0xFFABA2B0),
-//                       ),
-//                     ),
-//                   ),
-//                   SizedBox(
-//                     height: defaultSize * 1,
-//                   ),
-//                   Container(
-//                     margin: EdgeInsets.fromLTRB(30, 0, 30, 0),
-//                     child: TextField(
-//                       decoration: InputDecoration(
-//                         contentPadding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-//                         hintText: 'Task Title',
-//                         border: OutlineInputBorder(
-//                           borderRadius: BorderRadius.circular(15),
-//                         ),
-//                       ),
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//             ),
-//           );
-//         });
